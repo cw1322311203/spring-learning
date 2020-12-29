@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--1.加载context命名空间的支持
+        xmlns:context="http://www.springframework.org/schema/context"
+    -->
+
+    <!--2.加载配置文件-->
+    <!--注意：如果需要加载所有的properties文件，可以使用*.properties表示加载所有的properties文件-->
+    <context:property-placeholder location="classpath:*.properties"/>
+
+    <!--注意：读取数据使用${propertiesName}格式进行，其中propertiesName指properties文件中的属性名-->
+    <!--<bean id="userDao" class="com.cw.dao.impl.UserDaoImpl">
+        <property name="userName" value="${username}"/>
+        <property name="pwd" value="${password}"/>
+    </bean>
+    <bean id="bookDao" class="com.cw.dao.impl.BookDaoImpl"/>
+
+    <bean id="userService" class="com.cw.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <property name="bookDao" ref="bookDao"/>
+    </bean>-->
+
+    <import resource="applicationContext-user.xml"/>
+    <!--
+        Spring容器中的bean定义冲突问题
+        - 同id的bean，后定义的覆盖先定义的(后导入的覆盖先导入的)
+        - 导入配置文件可以理解为将导入的配置文件复制粘贴到对应位置
+        - 导入配置文件的顺序与位置不同可能会导致最终程序运行结果不同
+        - 不能在同一个配置文件中定义两个同id的bean
+    -->
+    <import resource="applicationContext-book.xml"/>
+    <import resource="applicationContext-book2.xml"/>
+
+    <bean id="bookDao" class="com.cw.dao.impl.BookDaoImpl">
+        <property name="num" value="3"/>
+    </bean>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/db3"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+</beans>

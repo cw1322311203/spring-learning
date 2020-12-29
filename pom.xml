@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cw</groupId>
+    <artifactId>spring-learning</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>spring01_ioc入门程序</module>
+        <module>spring02_ioc配置</module>
+        <module>spring03_di配置</module>
+        <module>spring04_实用开发相关配置</module>
+        <module>spring05_综合案例spring整合mybatis</module>
+        <module>spring06_注解_IOC注解</module>
+        <module>spring07_注解整合mybatis</module>
+        <module>spring08_bean加载过滤</module>
+    </modules>
+
+
+</project>

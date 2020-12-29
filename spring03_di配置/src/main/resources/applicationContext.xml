@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--##################set方法注入########################-->
+    <!--<bean id="userService" class="com.cw.service.impl.UserServiceImpl">
+    &lt;!&ndash;
+    name：对应bean中的属性名，要求该属性必须提供可访问的set方法（严格规范为此名称是set方法对应名称）
+    value：设定非引用类型属性对应的值，不能与ref同时使用
+    ref：设定引用类型属性对应bean的id ，不能与value同时使用
+    注意：一个bean可以有多个property标签
+    &ndash;&gt;
+    &lt;!&ndash;3.将要注入的引用类型的变量通过property属性进行注入，对应的name是要注入的变量名，使用ref属性声明要注入的bean的id&ndash;&gt;
+    <property name="userDao" ref="userDao"/>
+    <property name="num" value="666"/>
+    <property name="version" value="cw"/>
+    </bean>-->
+
+    <!--<bean id="userDao" class="com.cw.dao.impl.UserDaoImpl"/>-->
+
+
+    <!--#############构造器注入###############-->
+    <!--<bean id="userService" class="com.cw.service.impl.UserServiceImpl">
+        &lt;!&ndash;
+        name：对应bean中的构造方法所携带的参数名
+        value：设定非引用类型构造方法参数对应的值，不能与ref同时使用
+        &ndash;&gt;
+        &lt;!&ndash;
+        如果不加上name属性，则顺序需要和构造器中参数顺序一致
+        使用构造方法进行set注入，需要保证注入的属性与bean中定义的属性一致
+        一致指顺序一致或类型一致或使用index解决该问题
+        &ndash;&gt;
+        <constructor-arg name="userDao" ref="userDao"/>
+        <constructor-arg name="version" value="cw"/>
+        <constructor-arg name="num" value="999"/>
+    </bean>
+
+    <bean id="userDao" class="com.cw.dao.impl.UserDaoImpl">
+        &lt;!&ndash;
+        ref：设定引用类型构造方法参数对应bean的id ，不能与value同时使用
+        type ：设定构造方法参数的类型，用于按类型匹配参数或进行类型校验
+        index ：设定构造方法参数的位置，用于按位置匹配参数，参数index值从0开始计数
+        &ndash;&gt;
+        <constructor-arg index="1" value="123"/>
+        <constructor-arg index="0" value="root"/>
+    </bean>-->
+
+
+    <!--##########集合类型数据注入###########-->
+    <!--<bean id="userService" class="com.cw.service.impl.UserServiceImpl">
+    <property name="bookDao" ref="bookDao"/>
+    <property name="userDao" ref="userDao"/>
+    </bean>-->
+
+    <!--
+        使用p命名空间简化配置,p:propertyName，p:propertyName-ref
+        注意：使用p命令空间需要先开启spring对p命令空间的的支持，在beans标签中添加对应空间支持
+        xmlns:p="http://www.springframework.org/schema/p"
+    -->
+    <!--<bean
+            id="userService"
+            class="com.cw.service.impl.UserServiceImpl"
+            p:userDao-ref="userDao"
+            p:bookDao-ref="bookDao"/>-->
+
+    <!--
+        SpEL表达式
+        所有格式统一使用  value=“********”
+        -常量  #{10}  #{3.14}  #{2e5}  #{‘itcast’}
+        -引用bean  #{beanId}
+        -引用bean属性  #{beanId.propertyName}
+        -引用bean方法  beanId.methodName().method2()
+        -引用静态方法  T(java.lang.Math).PI
+        -运算符支持  #{3 lt 4 == 4 ge 3}
+        -正则表达式支持  #{user.name matches‘[a-z]{6,}’}
+        -集合支持  #{likes[3]}
+        注意：所有属性值不区分是否引用类型，统一使用value赋值
+    -->
+    <bean id="userService" class="com.cw.service.impl.UserServiceImpl">
+        <property name="bookDao" value="#{bookDao}"/>
+        <property name="userDao" value="#{userDao}"/>
+        <property name="num" value="#{666666666}"/>
+        <property name="version" value="#{'cw'}"/>
+    </bean>
+
+
+    <bean id="userDao" class="com.cw.dao.impl.UserDaoImpl">
+        <constructor-arg index="1" value="123"/>
+        <constructor-arg index="0" value="root"/>
+    </bean>
+
+    <bean id="bookDao" class="com.cw.dao.impl.BookDaoImpl">
+        <property name="al">
+            <list>
+                <value>al</value>
+                <value>66666</value>
+            </list>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="name">properties666</prop>
+                <prop key="value">666666</prop>
+            </props>
+        </property>
+        <property name="arr">
+            <array>
+                <value>55555</value>
+                <value>66666</value>
+            </array>
+        </property>
+        <property name="hm">
+            <map>
+                <entry key="name" value="hm6666"/>
+                <entry key="value" value="9999999"/>
+            </map>
+        </property>
+        <property name="hs">
+            <set>
+                <value>hs</value>
+                <value>6666666</value>
+            </set>
+        </property>
+    </bean>
+
+</beans>
