@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="userService" class="com.cw.service.impl.UserServiceImpl"/>
+    <bean id="myAdvice" class="com.cw.aop.AOPAdvice"/>
+
+    <!--aop:config 开启AOP，一个beans标签中可以配置多个aop:config标签-->
+    <aop:config>
+        <!--
+            aop:pointcut 设置切入点
+            一个aop:config标签中可以配置多个aop:pointcut标签，且该标签可以配置在aop:aspect标签内
+            基本属性：
+            - id ：识别切入点的名称，切入点描述的是某个方法
+            - expression ：切入点表达式，是一个快速匹配方法描述的通配格式，类似于正则表达式
+        -->
+        <!--公共切入点-->
+        <aop:pointcut id="pt1" expression="execution(* *..save(..))"/>
+        <aop:pointcut id="pt3" expression="execution(* *..delete(..))"/>
+        <!--
+            aop:aspect 设置具体的AOP通知对应的切入点
+            一个aop:config标签中可以配置多个aop:aspect标签
+            - ref ：通知所在的bean的id
+        -->
+        <aop:aspect ref="myAdvice">
+            <!--局部切入点-->
+            <aop:pointcut id="pt2" expression="execution(* *..update(..))"/>
+            <!--引用公共切入点-->
+            <!--
+                aop:before 设置前置通知
+                - method ：在通知类中设置当前通知类别对应的方法
+                - pointcut ：设置当前通知对应的切入点表达式，与pointcut-ref属性冲突
+                - pointcut-ref ：设置当前通知对应的切入点id，与pointcut属性冲突
+            -->
+            <!--<aop:before method="before" pointcut-ref="pt1"/>-->
+            <!--引用局部切入点-->
+            <!--<aop:before method="before" pointcut-ref="pt2"/>-->
+            <!--直接配置切入点-->
+            <!--<aop:before method="before" pointcut="execution(* *..*(..))"/>-->
+
+            <!--当同一个切入点配置了多个通知时，通知会存在运行的先后顺序，该顺序以通知配置的顺序为准-->
+            <aop:before method="before" pointcut-ref="pt1"/>
+            <!--改变通知变量名的定义顺序-->
+            <aop:before method="before3" arg-names="y,x" pointcut="execution(* *..*(int,int)) &amp;&amp; args(x,y)"/>
+            <!--锁定通知变量名：args参数名需要和通知类中对应方法的参数一致-->
+            <aop:before method="before2" pointcut="execution(* *..*(int,int)) &amp;&amp; args(x,y)"/>
+
+            <aop:before method="before" pointcut-ref="pt2"/>
+
+            <aop:after method="after" pointcut-ref="pt1"/><!--设置后置通知-->
+            <aop:after-returning method="afterReturning" pointcut-ref="pt2" returning="ret"/><!--设置返回后通知-->
+            <aop:after-throwing method="afterThrowing" pointcut-ref="pt3" throwing="t"/><!--设置抛出异常后通知-->
+            <aop:around method="around" pointcut-ref="pt2"/> <!--设置环绕通知-->
+        </aop:aspect>
+    </aop:config>
+
+    <!--<aop:config>-->
+    <!--<aop:pointcut id="pt" expression="execution(* *..*(..))"/>-->
+    <!--&lt;!&ndash;一个aop:config标签中可以配置多个aop:aspect标签&ndash;&gt;-->
+    <!--<aop:aspect ref="myAdvice">-->
+    <!--<aop:before method="before" pointcut-ref="pt"/>-->
+    <!--</aop:aspect>-->
+    <!--<aop:aspect ref="myAdvice">-->
+    <!--<aop:before method="before" pointcut-ref="pt"/>-->
+    <!--</aop:aspect>-->
+    <!--<aop:aspect ref="myAdvice">-->
+    <!--<aop:before method="before" pointcut-ref="pt"/>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+</beans>
