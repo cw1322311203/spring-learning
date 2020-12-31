@@ -18,6 +18,8 @@
         <module>spring07_注解整合mybatis</module>
         <module>spring08_bean加载过滤</module>
         <module>spring09_AOP入门案例</module>
+        <module>spring10_AOPXML</module>
+        <module>spring11_AOP注解</module>
     </modules>
 
 
