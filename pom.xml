@@ -20,6 +20,8 @@
         <module>spring09_AOP入门案例</module>
         <module>spring10_AOPXML</module>
         <module>spring11_AOP注解</module>
+        <module>spring12_综合案例</module>
+        <module>spring13_AOP底层原理</module>
     </modules>
 
 
