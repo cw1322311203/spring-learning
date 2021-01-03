@@ -1,26 +1,17 @@
 package com.cw.dao;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 
 public interface AccountDao {
-    /**
-     * 入账操作
-     *
-     * @param name  入账用户名
-     * @param money 入账金额
-     */
+
+    @Update("update account set money = money + #{money} where name = #{name}")
     void inMoney(@Param("name") String name, @Param("money") Double money);
 
-    /**
-     * 出账操作
-     *
-     * @param name  出账用户名
-     * @param money 出账金额
-     */
+    @Update("update account set money = money - #{money} where name = #{name}")
     void outMoney(@Param("name") String name, @Param("money") Double money);
 
-    void b();
 }
 
 

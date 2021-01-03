@@ -390,7 +390,7 @@ public Object tx(ProceedingJoinPoint pjp) throws Throwable {
 
 ### **2.10)事务传播行为**
 
-![1591367375088](https://img-blog.csdnimg.cn/2020123116352791.png)
+![1591367375088](https://img-blog.csdnimg.cn/20210103132252783.jpg)
 
 ### **2.11)事务传播应用**
 

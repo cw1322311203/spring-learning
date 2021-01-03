@@ -20,7 +20,6 @@ public interface AccountDao {
      */
     void outMoney(@Param("name") String name, @Param("money") Double money);
 
-    void b();
 }
 
 

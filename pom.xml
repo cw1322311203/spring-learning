@@ -24,6 +24,10 @@
         <module>spring13_AOP底层原理</module>
         <module>spring14_编程式事务控制</module>
         <module>spring15_声明式事务XML</module>
+        <module>spring16_声明式事务_注解</module>
+        <module>spring17_声明式事务_纯注解驱动</module>
+        <module>spring18_JDBCTemplate</module>
+        <module>spring19_RedisTemplate</module>
     </modules>
 
 
