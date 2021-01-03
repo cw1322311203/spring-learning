@@ -22,6 +22,8 @@
         <module>spring11_AOP注解</module>
         <module>spring12_综合案例</module>
         <module>spring13_AOP底层原理</module>
+        <module>spring14_编程式事务控制</module>
+        <module>spring15_声明式事务XML</module>
     </modules>
 
 

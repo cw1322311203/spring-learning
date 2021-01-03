@@ -28,7 +28,7 @@
 
   - 原因：Read uncommitted
 
-  解决方案： （表级读锁）
+  解决方案： Read committed（表级读锁）
 
 ![1591321851725](https://img-blog.csdnimg.cn/20201231163234236.png)
 
